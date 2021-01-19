@@ -1,33 +1,4 @@
-//Header left needs View High Scores Link
-//Link needs to go to a separate page that stores the scores of all previous plays on local storage
-//High Scores page needs to have a button to get back to the front page
-
-//Header right nees to have a time that starts when I start taking the quiz at 75 seconds intervalling down to 0
-//Timer cannot go past zero
-//Time moves at normal speed
-//When a questions is answered wrong, 10 seconds is removed from the timer's clock
-
-//title of the page says Coding Quiz Challenge in Big Bold font
-//Subtitle has 2 sentences explaining the quiz
-//Start Quiz Button starts the clock, and goes to the first question
-//click causes the color to change on the button
-
-//First question 
-//4 answer buttons, 1 of which is right, and the other 3 are wrong
-
-//when I answer right, it says correct under the next set of questions
-//when I answer wrong, it says wrong under the next set of questions and removes 10 seconds from the timer
-
-//Second Question
-//repeat above for 4 more times for 5 total questions
-
-//At the end show all done
-//show final score
-//allow initals to be placed
-//include submit button
-//save score and initials in local storage
-
-//if the time reaches 0 or if I answer all the questions then the game is over and skip to the end page
+// variables, most getElementById to store the html elements for use later in the javascript
 
 var currentQuestion = 0;
 var correctQuestions = 0;
@@ -57,6 +28,8 @@ var highScoresTitle = document.getElementById("high-score-title");
 var promptEl = document.getElementById("prompt");
 var finalScoreBox = document.getElementById("final-score-box");
 
+//questions for the quiz, an array of objects
+
 var questions = [
     { q: 'How do you make a new directory in terminal?', correct: 'mkdir', answers: ['mkdir','command','make directory','cheetos']},
     { q: 'What sheet in code governs the styling of a page?', correct: 'css', answers: ['js','css','html','fritos']},
@@ -65,7 +38,13 @@ var questions = [
     { q: 'What is a helpful website to learn html, javascript, and css?', correct: 'w3schools.com', answers:['espn.com','your linkedin feed', 'w3schools.com', 'tostidos']},
   ];
 
+//the gets the highScores that are in local storage and places them into previous scores, if there is nothing in local storage then previousScores
+//will be an empty array
+
 var previousScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+//startquiz function, hiding many different styles from the html, or blanking out text for use later, moves to next question and starts the timer
+//with countdown function
 
 function startQuiz(){
     questionsDiv.style.display = "block";
@@ -82,6 +61,9 @@ function startQuiz(){
     countdown();
 };
 
+//pulls the questions and possible answers from the questions array, current question is a parameter with is a global variable starting at zero 
+//getting passed through the function for global use
+
 function nextQuestion(currentQuestion) {
     question.textContent = questions[currentQuestion].q;  
     answer1.textContent = questions[currentQuestion].answers[0];
@@ -89,6 +71,9 @@ function nextQuestion(currentQuestion) {
     answer3.textContent = questions[currentQuestion].answers[2];
     answer4.textContent = questions[currentQuestion].answers[3];
 }; 
+
+//this starts the timer, if there is more than zero seconds, then time is subtracted at the interval of every 1000 miliseconds
+//if timeLeft goes to zero, the interval is cleared and skips to the endscreen
 
 function countdown() {
     clearInterval(timeInterval);
@@ -104,6 +89,9 @@ function countdown() {
     }, 1000);
 };
 
+//At the end, this displays different html elements via styling and presents the amount of correct questions
+//time is cleared from the clock
+
 function endScreen(){
     promptEl.textContent = "You have completed the quiz.";
     saveBtn.style.display = "block";
@@ -118,9 +106,15 @@ function endScreen(){
     saveBtn.style.display = "block";
 };
 
+//this clears the time from the clock in the case it needs to be done from other functions
+
 function clearTime() {
     timeLeft = timeLeft - timeLeft;
 }
+
+//this removes 10 seconds from the clock anytime there is a wrong answer, 
+//if there is less tha 10 seconds on the clock, then
+//this moves the time to zero automatically
 
 function removeTime() {
     if (timeLeft < 11 ) {
@@ -130,6 +124,12 @@ function removeTime() {
     timeLeft = timeLeft - 10;
     }
 }
+
+//this saves the values from initials element and finalScore elements from the html
+//if they don't type anything in, then the user is prompted to type initials in
+// if initals are put in, highScore is set in the local storage as a string
+//(local storage saves things as strings)
+//various styling is changed to present a certain type display and presentation
 
 function save() {
     var init = document.querySelector('#initials').value;
@@ -148,7 +148,14 @@ function save() {
     initials.value = "";
 }
 
+//this executes when the user presses the START button at the very beggining of a quiz
+
 startBtn.addEventListener("click", startQuiz);
+
+//when I answer right, it says correct under the next set of questions
+//when I answer wrong, it says wrong under the next set of questions and removes 10 seconds from the timer
+//this goes for the 4 answers... there are always 4 possible answers per question in this quiz
+//thus the need  for 4 click functions 
 
 answer1.addEventListener("click", function() {
     if (answer1.textContent === questions[currentQuestion].correct) {
@@ -222,10 +229,14 @@ answer4.addEventListener("click", function() {
     }
 });
 
+//submit score listens for when the submit button is clicked and enacts the save function
+
 submitScore.addEventListener("click", function (event){
     event.preventDefault();
     save();
 });
+
+//view High Scores governs the high scores button at the top left of the screen
 
 viewHighScoreBtn.addEventListener("click", function() {
     highScores.textContent = " ";
@@ -242,6 +253,8 @@ viewHighScoreBtn.addEventListener("click", function() {
     startingDiv.style.display = "none";
     startBtn.style.display = "none";
 })
+
+//this governs the return to start button on in the top left corner
 
 returnToStart.addEventListener("click", function() {
     highScoresTitle.style.display = "none";

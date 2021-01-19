@@ -10,8 +10,16 @@
 </head>
 
 <body>
+
+<!-- //title of the page says Coding Quiz Challenge in Big Bold font
+//Subtitle has 2 sentences explaining the quiz
+//Start Quiz Button starts the clock, and goes to the first question
+//click causes the color to change on the button -->
     <header>
         <div>
+            <!-- Header left needs View High Scores Link
+            Link needs to go to a separate page that stores the scores of all previous plays on local storage
+            High Scores page needs to have a button to get back to the front page -->
             <h5 id="highScoreLink">
                 <button id="view-high-score">View High Scores</button>
                 <button id="return-to-start">Return to Start</button>
@@ -19,6 +27,10 @@
         </div>
         
         <div>
+            <!-- Header right nees to have a time that starts when I start taking the quiz at 75 seconds intervalling down to 0
+            Timer cannot go past zero
+            Time moves at normal speed
+            When a questions is answered wrong, 10 seconds is removed from the timer's clock -->
             <div class = "timer-box">
                 <h5 id="countdown-label">Timer: </h5>
                 <h5 id="countdown"></h5>
@@ -28,14 +40,21 @@
     
     <div id="all-quiz-items">
 
+        <!-- This governs the starting page -->
         <div id='startingDiv'>
+            <h1>Coding Quiz Challenge</h1>
+            <h2>Let's see how much you know about coding! </h2>
             <button id="startBtn">START</button>
+            <h3>You get 50 seconds for the quiz. For every wrong answer you get 0 points and 10 seconds removed from the clock.</h3>
+            <h3>For every question correct, you will get 1 point. If time runs to zero before you finish, the quiz will be over!</h3>
+            <h3>You can save your score with your initials at the end. Good luck!</h3>
         </div>
 
         <div id='questions'>
 
             <p id ='question'>Question 1</p>
-
+            <!-- //First question 
+            //4 answer buttons, 1 of which is right, and the other 3 are wrong -->
             <div class ='answers'>
                 <button id="answer1" class ="answerBtn">Answer 1</button>
                 <button id="answer2" class ="answerBtn">Answer 2</button>
@@ -45,8 +64,11 @@
 
         </div>
 
+        <!-- Prompt is used for certain prompts through out the quiz either for error messages or other messages to the user -->
         <div id="prompt">
         </div>
+
+        <!-- This is where the final score, input, button, and how many correct answers recieved are display at the end of the quiz -->
 
         <div id='endingDiv'>
             <div id="final-score-box">
@@ -64,16 +86,16 @@
 
     </div>
 
-
-
+    <!-- The title for the high score -->
     <div id ="high-score-title">
         <h2>High Scores:</h2>
     </div>
 
+    <!-- The high scores themselves -->
     <div id = "high-scores">
-    
     </div>
     
+    <!-- returning from high score button -->
     <div id = "high-score-return">
         <button id = "high-score-return-btn"></button>
     </div>

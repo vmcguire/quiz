@@ -122,8 +122,6 @@
     font-size: 50pt;
   }
 
-
-
   #startBtn {
     color: rgb(255, 255, 255);
     background-color: rgb(87, 204, 204);
@@ -155,6 +153,7 @@
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
+    min-width: 70px;
   }
   #initials {
     text-align: center;
